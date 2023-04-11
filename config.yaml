@@ -1,21 +1,18 @@
-# The title is the title of your Add-On
-title: Hello World
-# The description will be shown above the form when activating the Add-On
-description: This is an updated simple test add-on
-# Top level type should always be object
+title: Translate Documents
+description: This Add-On allows you to translate documents using the Google Translate service. Supply a two character ISO 639-1 code for the input and output languages and you will receive your translation in a download as well as it will be uploaded to DocumentCloud. See https://www.loc.gov/standards/iso639-2/php/code_list.php for more details about ISO 639-1 codes.  
 type: object
-# How does this add-on accept documents
-# If more than one type is specified, the user will be prompted to choose one
 documents:
-  # By the current search query
   - query
-  # By the currently selected documents
   - selected
-# Properties are the fields for your form
 properties:
-  # the key is the name of the variable that will be returned to your code
-  name:
-    # the title is what will be shown as the form label
-    title: Name
-    # a string is text
+  input_lang:
+    title: Input language code
     type: string
+    default: en
+  output_lang:
+    title: Output language code
+    type: string
+    default: es
+required: 
+  -input_lang
+  -output_lang
