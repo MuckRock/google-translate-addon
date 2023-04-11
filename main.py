@@ -1,7 +1,9 @@
 """
 DocumentCloud Add-On that translates documents using Google Translate services.
 """
-
+import six
+from google.cloud import translate_v2 as translate
+from util.constants import ENCODING_STANDARD
 from documentcloud.addon import AddOn
 
 
