@@ -14,6 +14,7 @@ class Translate(AddOn):
         return result['translatedText']
                        
     def main(self):
+        # Retrieve input and out language charactor codes
         source_lang = self.data.get("input_lang")
         target_lang = self.data.get("output_lang")
         # Checks that input and output language codes are valid. 
@@ -29,15 +30,15 @@ class Translate(AddOn):
                 "It is supposed to be two characters in length."
             )
             sys.exit(1)                         
-
+        # Creates temporary directory out to store translations in before upload
         os.makedirs(os.path.dirname("./out/"), exist_ok=True)    
         os.chdir("./out/")
+        # For each document, translate the text and create a text file with the translation 
         for document in self.get_documents():
             translated_text=str(translate_text(document.full_text, source_lang, target_lang))
             with open(f"{document.title}-translation_{target_lang}", "wb") as file:
                        file.write(translated_text)
-        os.chdir("..")
-        self.client.upload_directory("./out/")
+                       self.client.documents.upload(f"{document.title}-translation_{target_lang}", original_extension="txt", title=f"{document.title}-translation_{target_lang}")
                        
 
 if __name__ == "__main__":
