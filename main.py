@@ -11,7 +11,7 @@ class Translate(AddOn):
 
     def main(self):
         input_lang = self.data.get("input_lang")
-        output_lang = self.data.get("output_lang" 
+        output_lang = self.data.get("output_lang")
         if len(input_lang) != 2:
             self.set_message(
                 "You submitted an improper ISO language code as an input. "
