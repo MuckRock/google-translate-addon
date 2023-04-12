@@ -49,9 +49,11 @@ class Translate(AddOn):
         os.chdir("./out/")
         # For each document, translate the text and create a text file with the translation 
         for document in self.get_documents():
+            self.set_message(f"Translating {document.title}...")
             translated_text=str(self.translate_text(document.full_text, source_lang, target_lang))
             with open(f"{document.title}-translation_{target_lang}.txt", "w") as file:
                        file.write(translated_text)
+            self.set_message(f"Uploading translation...")
             self.client.documents.upload(f"{document.title}-translation_{target_lang}.txt", original_extension="txt", title=f"{document.title}-translation_{target_lang}")
                        
 
