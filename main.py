@@ -22,7 +22,7 @@ class Translate(AddOn):
         
     def translate_text(self, text, target_lan, source_lan):
         translate_client = translate.Client()
-        result = translate.client.translate(text=text, target_language=target_lan, source_language=source_lan)
+        result = translate_client.translate(text=text, target_language=target_lan, source_language=source_lan)
         return result['translatedText']
                        
     def main(self):
