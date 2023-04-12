@@ -14,5 +14,5 @@ properties:
     type: string
     default: es
 required: 
-  -input_lang
-  -output_lang
+  - input_lang
+  - output_lang
