@@ -21,7 +21,7 @@ class Translate(AddOn):
         gac.close()
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = gac.name
         
-    def translate_text(text, target_lan, source_lan:
+    def translate_text(self, text, target_lan, source_lan):
         translate_client = translate.Client()
         result = translate.client.translate(text=text, target_language=target_lan, source_language=source_lan)
         return result['translatedText']
