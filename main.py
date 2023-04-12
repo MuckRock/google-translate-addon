@@ -50,9 +50,9 @@ class Translate(AddOn):
         # For each document, translate the text and create a text file with the translation 
         for document in self.get_documents():
             translated_text=str(self.translate_text(document.full_text, source_lang, target_lang))
-            with open(f"{document.title}-translation_{target_lang}", "w") as file:
+            with open(f"{document.title}-translation_{target_lang}.txt", "w") as file:
                        file.write(translated_text)
-                       self.client.documents.upload(f"{document.title}-translation_{target_lang}", original_extension="txt", title=f"{document.title}-translation_{target_lang}")
+            self.client.documents.upload(f"{document.title}-translation_{target_lang}.txt", original_extension="txt", title=f"{document.title}-translation_{target_lang}")
                        
 
 if __name__ == "__main__":
