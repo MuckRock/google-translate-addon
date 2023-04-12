@@ -1,19 +1,34 @@
 """
 DocumentCloud Add-On that translates documents using Google Translate services.
 """
+import os
 from google.cloud import translate_v2 as translate
 from util.constants import ENCODING_STANDARD
 from documentcloud.addon import AddOn
-import os
+from tempfile import NamedTemporaryFile
+
 
 class Translate(AddOn):
     """DocumentCloud premium Add-On that translates documents"""
+
+    def setup_credential_file(self):
+        """Sets up Google Cloud credential file"""
+        credentials = os.environ["TOKEN"]
+        # put the contents into a named temp file
+        # and set the var to the name of the file
+        gac = NamedTemporaryFile(delete=False)
+        gac.write(credentials.encode("ascii"))
+        gac.close()
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = gac.name
+        
     def translate_text(text, target_lan, source_lan:
         translate_client = translate.Client()
         result = translate.client.translate(text=text, target_language=target_lan, source_language=source_lan)
         return result['translatedText']
                        
     def main(self):
+        # Sets up Google Cloud API Credential file
+        self.setup_credential_file()
         # Retrieve input and out language charactor codes
         source_lang = self.data.get("input_lang")
         target_lang = self.data.get("output_lang")
