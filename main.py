@@ -32,13 +32,13 @@ class Translate(AddOn):
         source_lang = self.data.get("input_lang")
         target_lang = self.data.get("output_lang")
         # Checks that input and output language codes are valid. 
-        if len(input_lang) != 2:
+        if len(source_lang) != 2:
             self.set_message(
                 "You submitted an improper ISO language code as an input. "
                 "It is supposed to be two characters in length."
             )
             sys.exit(1)
-        if len(output_lang) != 2:
+        if len(target_lang) != 2:
             self.set_message(
                 "You submitted an improper ISO language code for the output language. "
                 "It is supposed to be two characters in length."
