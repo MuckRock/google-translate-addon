@@ -41,7 +41,7 @@ class Translate(AddOn):
         for document in self.get_documents():
             self.set_message(f"Translating {document.title}...")
             translated_text = str(
-                self.translate_text(document.full_text, source_lang, target_lang)
+                self.translate_text(document.full_text, target_lang, source_lang)
             )
             with open(f"{document.title}-translation_{target_lang}.txt", "w") as file:
                 file.write(translated_text)
