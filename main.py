@@ -2,8 +2,8 @@
 DocumentCloud Add-On that translates documents using Google Translate services.
 """
 import os
+import docx
 from tempfile import NamedTemporaryFile
-
 from documentcloud.addon import AddOn
 from google.cloud import translate_v2 as translate
 
@@ -40,15 +40,21 @@ class Translate(AddOn):
         # For each document, translate the text and create a text file with the translation
         for document in self.get_documents():
             self.set_message(f"Translating {document.title}...")
-            translated_text = str(
-                self.translate_text(document.full_text, target_lang, source_lang)
-            )
-            with open(f"{document.title}-translation_{target_lang}.txt", "w") as file:
-                file.write(translated_text)
+            doc = docx.Document()
+            for page in document.page_count:
+                doc.add_heading(f"Page # {page} Translation, 3)
+                translated_text = str(
+                    self.translate_text(document.get_page_text(page), target_lang, source_lang)
+                )
+                doc.add_paragraph(translated_text)
+                doc.add_page_break()
+                """ with open(f"{document.title}-translation_{target_lang}.txt", "w") as file:
+                    file.write(translated_text)"""
+            doc.save(f"{document.title}-translation_{target_lang}.docx")
             self.set_message(f"Uploading translation...")
             self.client.documents.upload(
-                f"{document.title}-translation_{target_lang}.txt",
-                original_extension="txt",
+                f"{document.title}-translation_{target_lang}.docx",
+                original_extension="docx",
                 title=f"{document.title}-translation_{target_lang}",
             )
 
