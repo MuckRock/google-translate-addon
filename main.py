@@ -48,8 +48,6 @@ class Translate(AddOn):
                 )
                 doc.add_paragraph(translated_text)
                 doc.add_page_break()
-                """ with open(f"{document.title}-translation_{target_lang}.txt", "w") as file:
-                    file.write(translated_text)"""
             doc.save(f"{document.title}-translation_{target_lang}.docx")
             self.set_message(f"Uploading translation...")
             self.client.documents.upload(
