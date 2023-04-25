@@ -42,7 +42,7 @@ class Translate(AddOn):
             self.set_message(f"Translating {document.title}...")
             doc = docx.Document()
             for page in document.page_count:
-                doc.add_heading(f"Page # {page} Translation, 3)
+                doc.add_heading(f"Page # {page} Translation", 3)
                 translated_text = str(
                     self.translate_text(document.get_page_text(page), target_lang, source_lang)
                 )
