@@ -2,7 +2,6 @@ title: Translate Documents
 description: This Add-On allows you to translate documents using the Google Translate service. Supply a two character ISO 639-1 code for the input and output languages and you will receive your translation in a download as well as it will be uploaded to DocumentCloud. See https://cloud.google.com/translate/docs/languages for supported languages.
 type: object
 documents:
-  - query
   - selected
 properties:
   input_lang:
