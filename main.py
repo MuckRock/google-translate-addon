@@ -50,12 +50,22 @@ class Translate(AddOn):
                 doc.add_page_break()
             doc.save(f"{document.title}-translation_{target_lang}.docx")
             self.set_message(f"Uploading translation...")
-            self.client.documents.upload(
-                f"{document.title}-translation_{target_lang}.docx",
-                original_extension="docx",
-                title=f"{document.title}-translation_{target_lang}", 
-                access=self.data["access_level"]
-            )
+            # If project ID is specified, upload to that project. Else just upload to user's documents. 
+            if self.data.get("project_id") is not None:
+                self.client.documents.upload(
+                    f"{document.title}-translation_{target_lang}.docx",
+                    original_extension="docx",
+                    title=f"{document.title}-translation_{target_lang}", 
+                    access=self.data["access_level"], 
+                    project=self.data.get("project_id")
+                )
+            else:
+                self.client.documents.upload(
+                    f"{document.title}-translation_{target_lang}.docx",
+                    original_extension="docx",
+                    title=f"{document.title}-translation_{target_lang}", 
+                    access=self.data["access_level"]
+                )
 
 
 if __name__ == "__main__":
