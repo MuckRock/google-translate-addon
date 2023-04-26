@@ -152,6 +152,10 @@ properties:
     type: string
     default: es
     enum: *langs
+  project_id: 
+    title: Project ID
+    type: integer 
+    description: (Optional) Project ID of project you want to upload the translations to. 
   access_level: 
     title: Access level (public, private, organization) of translations
     type: string
