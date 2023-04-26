@@ -53,7 +53,8 @@ class Translate(AddOn):
             self.client.documents.upload(
                 f"{document.title}-translation_{target_lang}.docx",
                 original_extension="docx",
-                title=f"{document.title}-translation_{target_lang}",
+                title=f"{document.title}-translation_{target_lang}", 
+                access=self.data["access_level"]
             )
 
 
