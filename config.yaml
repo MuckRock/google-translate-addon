@@ -152,4 +152,15 @@ properties:
     type: string
     default: es
     enum: *langs
-
+  access_level: 
+    title: Access level (public, private, organization) of translations
+    type: string
+    default: public
+    enum: &access
+      - public 
+      - private
+      - organization 
+required:
+  - access_level
+  - output_lang
+  - input_lang
