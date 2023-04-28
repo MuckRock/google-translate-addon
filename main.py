@@ -14,8 +14,8 @@ class Translate(AddOn):
         num_chars = 0
         for doc in documents:
             num_chars += len(doc.full_text)
-        cost = num_chars/75
-        self.set_message(f"There are {num_chars} in this document, it would cost {cost} credits to translate this document")
+        cost = round(num_chars/75)
+        self.set_message(f"There are {num_chars} characters in this document, it would cost {cost} AI credits to translate this document.")
         sys.exit(0)
 
     def setup_credential_file(self):
