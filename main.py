@@ -4,6 +4,7 @@ DocumentCloud Add-On that translates documents using Google Translate services.
 import os
 import sys
 import docx
+import math
 from tempfile import NamedTemporaryFile
 from documentcloud.addon import AddOn
 from google.cloud import translate_v2 as translate
@@ -14,7 +15,7 @@ class Translate(AddOn):
         num_chars = 0
         for doc in documents:
             num_chars += len(doc.full_text)
-        cost = round(num_chars/75)
+        cost = math.ceil(num_chars/75)
         self.set_message(f"There are {num_chars} characters in this document, it would cost {cost} AI credits to translate this document.")
         sys.exit(0)
 
