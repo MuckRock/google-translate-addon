@@ -2,14 +2,21 @@
 DocumentCloud Add-On that translates documents using Google Translate services.
 """
 import os
+import sys
 import docx
 from tempfile import NamedTemporaryFile
 from documentcloud.addon import AddOn
 from google.cloud import translate_v2 as translate
 
-
 class Translate(AddOn):
     """DocumentCloud premium Add-On that translates documents"""
+    def dry_run(self, documents):
+        num_chars = 0
+        for doc in documents:
+            num_chars += len(doc.full_text)
+        cost = num_chars/75
+        self.set_message(f"There are {num_chars} in this document, it would cost {cost} credits to translate this document")
+        sys.exit(0)
 
     def setup_credential_file(self):
         """Sets up Google Cloud credential file"""
@@ -29,6 +36,10 @@ class Translate(AddOn):
         return result["translatedText"]
 
     def main(self):
+        # If dry_run is selected, it will calculate the cost of translation. 
+        if self.data.get("dry_run"):
+            self.dry_run(self.get_documents())
+          
         # Sets up Google Cloud API Credential file
         self.setup_credential_file()
         # Retrieve input and out language charactor codes
