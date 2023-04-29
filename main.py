@@ -11,6 +11,32 @@ from google.cloud import translate_v2 as translate
 
 class Translate(AddOn):
     """DocumentCloud premium Add-On that translates documents"""
+
+    def validate(self):
+        """Validate that we can run the translation"""
+        if self.get_document_count() == 0:
+            self.set_message(
+                "It looks like no documents were selected. Search for some or "
+                "select them and run again."
+            )
+            return False
+        elif not self.org_id:
+            self.set_message("No organization to charge.")
+            return False
+        else:
+            num_chars = 0
+            for document in self.get_documents():
+                num_chars += len(doc.full_text)
+            cost = math.ceil(num_chars/75)
+            resp = self.client.post(
+                f"organizations/{self.org_id}/ai_credits/",
+                json={"ai_credits": cost},
+            )
+            if resp.status_code != 200:
+                self.set_message("Error charging AI credits.")
+                return False
+        return True
+
     def dry_run(self, documents):
         num_chars = 0
         for doc in documents:
@@ -40,7 +66,11 @@ class Translate(AddOn):
         # If dry_run is selected, it will calculate the cost of translation. 
         if self.data.get("dry_run"):
             self.dry_run(self.get_documents())
-          
+        
+        if not self.validate():
+            # if not validated, return immediately
+            return
+
         # Sets up Google Cloud API Credential file
         self.setup_credential_file()
         # Retrieve input and out language charactor codes
