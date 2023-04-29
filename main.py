@@ -26,7 +26,7 @@ class Translate(AddOn):
         else:
             num_chars = 0
             for document in self.get_documents():
-                num_chars += len(doc.full_text)
+                num_chars += len(document.full_text)
             cost = math.ceil(num_chars/75)
             resp = self.client.post(
                 f"organizations/{self.org_id}/ai_credits/",
