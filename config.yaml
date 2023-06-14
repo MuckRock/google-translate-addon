@@ -181,3 +181,7 @@ required:
   - access_level
   - output_lang
   - input_lang
+categories:
+  - ai
+  - premium
+  - file
