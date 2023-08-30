@@ -6,7 +6,7 @@ description: >-
   See https://cloud.google.com/translate/docs/languages for supported languages.
 
 
-  Note that this Add-On uses 1 AI credit for every 75 characters translated. 
+  Note that this Add-On uses **1 AI credit for every 75 characters** translated. 
   You can do a dry-run of this Add-On which will tell you the cost of translating the document set. 
 type: object
 documents:
@@ -185,3 +185,5 @@ categories:
   - ai
   - premium
   - file
+cost: 1 credit per 75 characters
+
