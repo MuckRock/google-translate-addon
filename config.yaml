@@ -185,5 +185,8 @@ categories:
   - ai
   - premium
   - file
-cost: 1 credit per 75 characters
+cost: 
+  price: 1
+  amount: 75
+  unit: character
 
