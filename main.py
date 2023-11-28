@@ -1,13 +1,16 @@
 """
 DocumentCloud Add-On that translates documents using Google Translate services.
 """
+import math
 import os
 import sys
-import docx
-import math
 from tempfile import NamedTemporaryFile
+
 from documentcloud.addon import AddOn
 from google.cloud import translate_v2 as translate
+
+import docx
+
 
 class Translate(AddOn):
     """DocumentCloud premium Add-On that translates documents"""
@@ -30,7 +33,10 @@ class Translate(AddOn):
             cost = math.ceil(num_chars/75)
             resp = self.client.post(
                 f"organizations/{self.org_id}/ai_credits/",
-                json={"ai_credits": cost},
+                json={
+                    "ai_credits": cost,
+                    "note": f"Google Translate add-on for {num_chars} characters"
+                },
             )
             if resp.status_code != 200:
                 self.set_message("Error charging AI credits.")
