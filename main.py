@@ -32,9 +32,6 @@ class Translate(AddOn):
                 num_chars += len(document.full_text)
             cost = math.ceil(num_chars/75)
             self.charge_credits(cost)
-            if resp.status_code != 200:
-                self.set_message("Error charging AI credits.")
-                return False
         return True
 
     def dry_run(self, documents):
