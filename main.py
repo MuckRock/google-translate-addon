@@ -31,7 +31,10 @@ class Translate(AddOn):
             for document in self.get_documents():
                 num_chars += len(document.full_text)
             cost = math.ceil(num_chars/75)
-            self.charge_credits(cost)
+            try:
+                self.charge_credits(cost)
+            except ValueError:
+                return False
         return True
 
     def dry_run(self, documents):
