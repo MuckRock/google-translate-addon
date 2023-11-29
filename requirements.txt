@@ -1,4 +1,4 @@
-python-documentcloud==3.7.1
+python-documentcloud==3.8.0
 requests
 google-cloud-translate
 python-docx
