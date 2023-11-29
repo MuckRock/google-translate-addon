@@ -31,13 +31,7 @@ class Translate(AddOn):
             for document in self.get_documents():
                 num_chars += len(document.full_text)
             cost = math.ceil(num_chars/75)
-            resp = self.client.post(
-                f"organizations/{self.org_id}/ai_credits/",
-                json={
-                    "ai_credits": cost,
-                    "note": f"Google Translate add-on for {num_chars} characters"
-                },
-            )
+            self.charge_credits(cost)
             if resp.status_code != 200:
                 self.set_message("Error charging AI credits.")
                 return False
