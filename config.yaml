@@ -3,7 +3,7 @@ description: |
   Translate documents using the Google Translate service. 
 instructions: |
   Supply a [ISO 639-1 code](https://cloud.google.com/translate/docs/languages) for the input and output languages 
-  and you will receive your translation in a download and the resulting document with be uploaded to Documentcloud.
+  and you will receive your translation in a download and the resulting document will be uploaded to Documentcloud.
 type: object
 documents:
   - selected
